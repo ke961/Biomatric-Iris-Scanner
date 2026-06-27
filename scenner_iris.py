@@ -8,6 +8,7 @@ eye_cascade = cv2.CascadeClassifier(
 
 
 
+
 cap = cv2.VideoCapture(0)
 
 while True:
@@ -24,6 +25,7 @@ while True:
         minNeighbors=5,
         minSize=(30, 30)
     )
+
 
 
 
