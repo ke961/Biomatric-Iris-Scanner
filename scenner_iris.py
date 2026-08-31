@@ -182,7 +182,7 @@ class BiometricDatabase:
                 pass
         default_db = {
             "IRIS-001": {
-                "name": "Keya Khan (Admin)",
+                "name": "Abila Khan Keya (Admin)",
                 "clearance": "LEVEL 5 // ALPHA",
                 "hash": "8F3A2B1C9D4E",
                 "enrolled_at": "2026-08-31"
