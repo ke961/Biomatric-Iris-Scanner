@@ -4,36 +4,32 @@ A real-time, jitter-free biometric iris scanning and eye telemetry workstation b
 
 ---
 
-## ✨ Key Features & Improvements
+## ✨ Key Features
 
 - **⚡ Ultra-Smooth Jitter Filtering**: Uses Adaptive Exponential Moving Average (EMA) with velocity damping and IoU tracking to eliminate box jumping and flickering.
-- **🎯 Multi-Layer Holographic Reticle**:
-  - Rotating outer azimuth ring with degree ticks.
-  - Counter-rotating inner segmented arcs.
-  - Corner tech brackets with dynamic lock score coloring (Amber ➔ Neon Green).
-  - Pupil center crosshair and dark-core centroid localization.
-  - Smooth sinusoidal scanning laser beam.
-- **📊 Real-Time Biometric Telemetry**:
-  - Live cryptographic biometric hash readout (`0x...`).
-  - FPS counter with smooth frame-time estimation.
-  - Target lock confidence score & liveness indicators.
-  - Translucent glassmorphism panels with accented borders.
-- **🎮 Interactive Authentication Simulation**:
-  - Trigger live 3-second biometric pattern verification (`SPACE`).
-  - Toggle between Full Holographic HUD and Minimalist mode (`M`).
-  - Snapshot capture (`C`) saved directly to disk.
+- **👁️ Liveness & Anti-Spoofing Blink Detection**: Counts natural physiological eye blinks in real-time to distinguish living eyes from printed photo spoofing attacks.
+- **🗺️ Polar Iris Unwrap (Daugman Rubber Sheet PiP)**: Real-time polar unwrapping of the annular iris boundary into a linearized $(r, \theta)$ feature strip.
+- **🎨 4 Multi-Spectral Color Themes**:
+  - `CYBER BLUEPRINT` (Holographic Cyan / Emerald)
+  - `TACTICAL NVG` (Military Night Vision Green)
+  - `FLIR THERMAL IR` (False-color thermal heatmap)
+  - `AMBER DEFENSE` (Sci-Fi Gold / Amber alert)
+- **🗃️ Biometric Profile Database & Audit Logging**:
+  - Enrolls biometric profiles into `biometric_db.json`.
+  - Automatically logs every access attempt with confidence and liveness scores to `scan_audit_log.csv`.
+- **🔊 Non-Blocking Synthesized Audio Cues**: Multi-frequency acoustic feedback for target lock, verification approval, access denied, and blink registration.
 
 ---
 
 ## 🚀 How to Run
 
 ### 1. Requirements
-Ensure required libraries are installed:
+Ensure dependencies are installed in your virtual environment:
 ```bash
 pip install opencv-python numpy
 ```
 
-### 2. Launching the Application
+### 2. Launching the Live Biometric Workstation
 ```bash
 python scenner_iris.py
 ```
@@ -50,6 +46,8 @@ python demo_scenner_iris.py
 | Key | Action |
 |---|---|
 | <kbd>SPACE</kbd> | Trigger Biometric Authentication Scan |
+| <kbd>T</kbd> | Cycle Multi-Spectral Color Themes |
+| <kbd>E</kbd> | Enroll Currently Locked Iris into Database |
 | <kbd>M</kbd> | Toggle HUD Mode (Full Glassmorphism vs Minimal) |
 | <kbd>C</kbd> | Capture and save biometric iris snapshot |
 | <kbd>Q</kbd> / <kbd>ESC</kbd> | Exit application |
@@ -63,3 +61,4 @@ python demo_scenner_iris.py
 
 ## 📄 License
 This project is licensed under the [MIT License](LICENSE).
+
