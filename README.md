@@ -7,6 +7,8 @@ A real-time, jitter-free biometric iris scanning and eye telemetry workstation b
 ## ✨ Key Features
 
 - **⚡ Ultra-Smooth Jitter Filtering**: Uses Adaptive Exponential Moving Average (EMA) with velocity damping and IoU tracking to eliminate box jumping and flickering.
+- **🔔 Animated Alert Toast & Vignette System**: Dynamic slide-in glassmorphism notifications (`[SUCCESS]`, `[SECURITY ALERT]`, `[WARNING]`, `[SYSTEM]`) paired with pulsating screen border warning vignettes.
+- **🔊 Multi-Tone Sound Effects**: Non-blocking acoustic synthesizer featuring rising harmonic chord melodies, danger sirens, camera shutter clicks, and target lock blips.
 - **👁️ Liveness & Anti-Spoofing Blink Detection**: Counts natural physiological eye blinks in real-time to distinguish living eyes from printed photo spoofing attacks.
 - **🗺️ Polar Iris Unwrap (Daugman Rubber Sheet PiP)**: Real-time polar unwrapping of the annular iris boundary into a linearized $(r, \theta)$ feature strip.
 - **🎨 4 Multi-Spectral Color Themes**:
@@ -17,7 +19,7 @@ A real-time, jitter-free biometric iris scanning and eye telemetry workstation b
 - **🗃️ Biometric Profile Database & Audit Logging**:
   - Enrolls biometric profiles into `biometric_db.json`.
   - Automatically logs every access attempt with confidence and liveness scores to `scan_audit_log.csv`.
-- **🔊 Non-Blocking Synthesized Audio Cues**: Multi-frequency acoustic feedback for target lock, verification approval, access denied, and blink registration.
+
 
 ---
 
