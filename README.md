@@ -25,27 +25,31 @@ A real-time, jitter-free biometric iris scanning and eye telemetry workstation b
 
 ## 🚀 How to Run
 
-### 1. Requirements
-Ensure dependencies are installed in your virtual environment:
+### 1. 📦 Installation & Dependencies
+Ensure all dependencies are installed in your Python environment:
 ```bash
 pip install -r requirements.txt
 ```
 
-### 2. Launching the Cyber Web Dashboard Workstation (Browser UI)
+### 2. 🌐 Cyber Web Dashboard Workstation (Browser UI)
+Launch the FastAPI-powered cyber telemetry web interface:
 ```bash
 python web_app.py
 ```
-*Open [http://127.0.0.1:8000](http://127.0.0.1:8000) in your browser for the full Cyber HUD telemetry suite, Web Audio synthesizer, liveness ECG waveform, and security audit log.*
+> 🔗 Open **[http://127.0.0.1:8000](http://127.0.0.1:8000)** in your browser for the Cyber HUD telemetry suite, Web Audio acoustic synthesizer, ECG liveness pulse monitor, and access audit log.
 
-### 3. Launching the OpenCV Desktop Workstation
+### 3. 🖥️ Live OpenCV Desktop Workstation
+Launch the native OpenCV desktop application with real-time camera tracking and Daugman polar unwrap PiP:
 ```bash
 python scenner_iris.py
 ```
 
-### 4. Running the Animation Demo (No Camera Needed)
+### 4. ✨ Biometric Simulation Demo (No Camera Needed)
+Run the graphic animation simulation to test themes and UI elements without a webcam:
 ```bash
 python demo_scenner_iris.py
 ```
+
 
 
 ---
