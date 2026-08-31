@@ -7,6 +7,7 @@ import json
 import csv
 import os
 import threading
+
 try:
     import winsound
     AUDIO_AVAILABLE = True
@@ -19,7 +20,7 @@ except ImportError:
 # ==============================================================================
 
 def play_audio_cue(cue_type="lock"):
-    """Plays synthesized multi-frequency audio alerts in a daemon thread."""
+    """Plays synthesized multi-frequency audio alerts in a background daemon thread."""
     if not AUDIO_AVAILABLE:
         return
 
@@ -28,11 +29,11 @@ def play_audio_cue(cue_type="lock"):
             if cue_type == "lock":
                 winsound.Beep(1200, 50)
             elif cue_type == "alert_success":
-                # High-tech sci-fi rising harmonic chord
+                # High-tech rising harmonic chord
                 for freq in [523, 659, 784, 1046]:
                     winsound.Beep(freq, 60)
             elif cue_type == "alert_danger":
-                # Rapid warning siren pulse
+                # Warning siren pulse
                 for _ in range(3):
                     winsound.Beep(900, 80)
                     winsound.Beep(450, 80)
@@ -45,7 +46,7 @@ def play_audio_cue(cue_type="lock"):
                 winsound.Beep(2400, 20)
                 winsound.Beep(1800, 30)
             elif cue_type == "toast":
-                # UI blip
+                # UI notification blip
                 winsound.Beep(1500, 45)
             elif cue_type == "blink":
                 # Liveness blink ping
@@ -65,13 +66,13 @@ class AlertNotificationManager:
 
     COLOR_MAP = {
         "SUCCESS": ((50, 255, 120), (10, 35, 15), "[SUCCESS]"),
-        "DANGER": ((40, 40, 245), (35, 10, 10), "[ALERT]"),
+        "DANGER": ((40, 40, 245), (35, 10, 10), "[SECURITY ALERT]"),
         "WARNING": ((0, 200, 255), (35, 25, 10), "[WARNING]"),
         "INFO": ((255, 220, 0), (12, 22, 30), "[SYSTEM]")
     }
 
     def __init__(self):
-        self.notifications = []  # list of dicts: {'text', 'type', 'start_time', 'duration', 'sound'}
+        self.notifications = []
         self.vignette_color = None
         self.vignette_expiry = 0
 
@@ -115,11 +116,10 @@ class AlertNotificationManager:
         # 2. Draw toast notifications (slide down from top center)
         self.notifications = [n for n in self.notifications if cur_time - n["start_time"] < n["duration"]]
         
-        for idx, notif in enumerate(self.notifications[-3:]):  # Show at most 3 simultaneous toasts
+        for idx, notif in enumerate(self.notifications[-3:]):
             elapsed = cur_time - notif["start_time"]
             duration = notif["duration"]
             
-            # Slide in & fade calculation
             if elapsed < 0.3:
                 anim_prog = elapsed / 0.3
             elif elapsed > duration - 0.4:
@@ -130,8 +130,8 @@ class AlertNotificationManager:
 
             accent_color, bg_color, tag = self.COLOR_MAP.get(notif["type"], self.COLOR_MAP["INFO"])
             
-            toast_w, toast_h = 500, 42
-            target_y = 68 + idx * 48
+            toast_w, toast_h = 520, 40
+            target_y = 66 + idx * 46
             start_y = 10
             cur_y = int(start_y + (target_y - start_y) * anim_prog)
             cur_x = (w_img - toast_w) // 2
@@ -151,9 +151,9 @@ class AlertNotificationManager:
             cv2.putText(
                 frame,
                 msg,
-                (cur_x + 16, cur_y + 26),
+                (cur_x + 16, cur_y + 25),
                 cv2.FONT_HERSHEY_SIMPLEX,
-                0.44,
+                0.42,
                 (255, 255, 255),
                 1,
                 cv2.LINE_AA
@@ -499,14 +499,18 @@ class BiometricHUD:
         bw, bh = w + pad * 2, h + pad * 2
         c_len = max(10, int(min(w, h) * 0.22))
         
+        # Top-Left Corner
         cv2.line(img, (bx1, by1), (bx1 + c_len, by1), accent, 2, cv2.LINE_AA)
         cv2.line(img, (bx1, by1), (bx1, by1 + c_len), accent, 2, cv2.LINE_AA)
+        # Top-Right Corner
         cv2.line(img, (bx1 + bw, by1), (bx1 + bw - c_len, by1), accent, 2, cv2.LINE_AA)
-        cv2.line(img, (bx1 + bw, by1), (bx1 + bw, y + c_len), accent, 2, cv2.LINE_AA)
+        cv2.line(img, (bx1 + bw, by1), (bx1 + bw, by1 + c_len), accent, 2, cv2.LINE_AA)
+        # Bottom-Left Corner
         cv2.line(img, (bx1, by1 + bh), (bx1 + c_len, by1 + bh), accent, 2, cv2.LINE_AA)
         cv2.line(img, (bx1, by1 + bh), (bx1, by1 + bh - c_len), accent, 2, cv2.LINE_AA)
+        # Bottom-Right Corner
         cv2.line(img, (bx1 + bw, by1 + bh), (bx1 + bw - c_len, by1 + bh), accent, 2, cv2.LINE_AA)
-        cv2.line(img, (bx1 + bw, by1 + bh), (bx1 + bw, y + bh - c_len), accent, 2, cv2.LINE_AA)
+        cv2.line(img, (bx1 + bw, by1 + bh), (bx1 + bw, by1 + bh - c_len), accent, 2, cv2.LINE_AA)
 
         # 2. Outer Rotating Azimuth Ring
         rot_angle = (elapsed * 50) % 360
@@ -861,6 +865,3 @@ class IrisScannerApp:
 if __name__ == "__main__":
     app = IrisScannerApp()
     app.run()
-run()
-
-
