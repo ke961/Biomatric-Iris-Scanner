@@ -310,11 +310,11 @@ class WebIrisEngine:
                 if len(tracks) > 0 or not self.has_camera:
                     self.scan_state = "VERIFIED"
                     first_profile = next(iter(self.db.profiles.values()), {
-                        "name": "Keya Khan (Admin)",
+                        "name": "Abila Khan Keya (Admin)",
                         "clearance": "LEVEL 5 // ALPHA"
                     })
                     self.authenticated_user = first_profile
-                    self.db.log_scan("IRIS-001", first_profile.get("name", "Keya Khan"), "ACCESS_GRANTED", 99.4, 98.8)
+                    self.db.log_scan("IRIS-001", first_profile.get("name", "Abila Khan Keya"), "ACCESS_GRANTED", 99.4, 98.8)
                     self.alerts.post(f"IDENTITY VERIFIED: {first_profile.get('name')}", "SUCCESS", duration=4.0)
                 else:
                     self.scan_state = "FAILED"
