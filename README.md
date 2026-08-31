@@ -59,3 +59,7 @@ python demo_scenner_iris.py
 ## 👤 Author
 **Keya Khan**
 
+---
+
+## 📄 License
+This project is licensed under the [MIT License](LICENSE).
