@@ -68,7 +68,7 @@ python demo_scenner_iris.py
 ---
 
 ## 👤 Author
-**Keya Khan**
+**Abila Khan Keya**
 
 ---
 
