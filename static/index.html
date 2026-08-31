@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>👁️ Biometric Iris Scanner // Cyber Telemetry Workstation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/css/dashboard.css" />
+</head>
+<body>
+
+  <!-- Cyber Navigation Header -->
+  <header class="cyber-header">
+    <div class="brand-container">
+      <span class="brand-icon">👁️</span>
+      <div>
+        <div class="brand-title">Biometric Iris Scanner Pro</div>
+        <div class="brand-subtitle">MIL-SPEC TELEMETRY & AUTHENTICATION SUITE</div>
+      </div>
+    </div>
+
+    <div class="header-status">
+      <div class="live-pill">
+        <div class="live-dot"></div>
+        <span>LIVE WORKSTATION</span>
+      </div>
+
+      <!-- Theme Switcher -->
+      <div class="theme-selector">
+        <button class="theme-btn active" data-theme="CYBER">CYBER BLUE</button>
+        <button class="theme-btn" data-theme="NVG">TACTICAL NVG</button>
+        <button class="theme-btn" data-theme="THERMAL">FLIR THERMAL</button>
+        <button class="theme-btn" data-theme="AMBER">AMBER DEFENSE</button>
+      </div>
+
+      <!-- Audio Synthesizer Toggle -->
+      <button id="btnToggleAudio" class="audio-toggle-btn">🔊 SOUND ON</button>
+    </div>
+  </header>
+
+  <!-- Main Grid Layout -->
+  <main class="dashboard-container">
+
+    <!-- Left Column: Video Feed & Metrics -->
+    <section class="cyber-panel">
+      <div class="panel-header">
+        <div class="panel-title">👁️ Live Optical Stream & Reticle Overlay</div>
+        <div class="panel-badge">DAUGMAN UNWRAP ACTIVE</div>
+      </div>
+
+      <!-- Live Video Viewport -->
+      <div class="stream-wrapper">
+        <img id="liveStreamImg" class="live-stream-img" src="/video_feed" alt="Live Biometric Video Feed" />
+        <div class="scanline-overlay"></div>
+        <div class="stream-watermark">SHA-256 // CRYPTOGRAPHIC VERIFICATION</div>
+        <div id="liveFpsBadge" class="stream-fps-badge">30.0 FPS</div>
+      </div>
+
+      <!-- Quick Action Controls -->
+      <div class="controls-toolbar">
+        <button id="btnTriggerScan" class="cyber-btn cyber-btn-primary">
+          <span>⚡</span> TRIGGER BIOMETRIC SCAN
+        </button>
+        <button id="btnCaptureSnapshot" class="cyber-btn cyber-btn-secondary">
+          <span>📸</span> CAPTURE SNAPSHOT
+        </button>
+        <button id="btnOpenEnroll" class="cyber-btn">
+          <span>➕</span> ENROLL SUBJECT
+        </button>
+      </div>
+
+      <!-- Telemetry Gauges Grid -->
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-label">System State</div>
+          <div id="valSystemStatus" class="metric-value">READY</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Active Irises</div>
+          <div id="valActiveTargets" class="metric-value emerald">1 TARGET</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Liveness Blinks</div>
+          <div id="valBlinkCount" class="metric-value">0 BLINKS</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Biometric Hash</div>
+          <div id="valBioHash" class="metric-value" style="font-size:16px; font-family:var(--font-mono); margin-top:4px;">0x8F3A2B1C9D4E</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Right Column: Telemetry, Polar Map, Personnel -->
+    <aside class="sidebar-column">
+
+      <!-- Polar Map (Daugman Rubber Sheet) -->
+      <div class="cyber-panel">
+        <div class="panel-header">
+          <div class="panel-title">🗺️ Polar Iris Map (r, θ)</div>
+          <div class="panel-badge">DAUGMAN PIP</div>
+        </div>
+        <div id="polarViewer" class="polar-viewer">
+          <div class="polar-empty">AWAITING LOCK...</div>
+        </div>
+        <div style="font-size:11px; color:var(--text-muted); font-family:var(--font-mono);">
+          ANNULAR IRIS BOUNDARY LINEARIZATION
+        </div>
+      </div>
+
+      <!-- Physiological Liveness Pulse -->
+      <div class="cyber-panel">
+        <div class="panel-header">
+          <div class="panel-title">💓 Telemetry Waveform</div>
+          <div class="panel-badge">ANTI-SPOOF</div>
+        </div>
+        <canvas id="ecgCanvas" class="pulse-canvas" width="340" height="70"></canvas>
+      </div>
+
+      <!-- Enrolled Profiles -->
+      <div class="cyber-panel">
+        <div class="panel-header">
+          <div class="panel-title">🗃️ Clearance Registry</div>
+          <button id="btnRefreshProfiles" class="cyber-btn" style="padding:4px 8px; font-size:11px;">REFRESH</button>
+        </div>
+        <div id="profilesList" class="profile-list">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Recent Snapshot Captures -->
+      <div class="cyber-panel">
+        <div class="panel-header">
+          <div class="panel-title">📸 Recent Captures</div>
+        </div>
+        <div id="snapshotsGallery" style="display:flex; gap:8px; flex-wrap:wrap;">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- Full-Width Security Audit Log Table -->
+    <section class="cyber-panel fullwidth-row">
+      <div class="panel-header">
+        <div class="panel-title">🛡️ Real-Time Biometric Access Audit Log</div>
+        <button id="btnRefreshLogs" class="cyber-btn" style="padding:6px 12px; font-size:12px;">
+          <span>🔄</span> REFRESH AUDIT TRAIL
+        </button>
+      </div>
+
+      <div class="audit-table-wrapper">
+        <table class="cyber-table">
+          <thead>
+            <tr>
+              <th>TIMESTAMP</th>
+              <th>PROFILE ID</th>
+              <th>SUBJECT NAME</th>
+              <th>AUTH STATUS</th>
+              <th>CONFIDENCE</th>
+              <th>LIVENESS</th>
+            </tr>
+          </thead>
+          <tbody id="auditTableBody">
+            <!-- Populated by JS -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Enrollment Modal Form -->
+  <div id="enrollModal" class="modal-backdrop">
+    <div class="modal-card">
+      <div class="panel-header">
+        <div class="panel-title">➕ Biometric Subject Enrollment</div>
+        <button id="btnCloseEnroll" style="background:none; border:none; color:var(--text-muted); font-size:18px; cursor:pointer;">✕</button>
+      </div>
+
+      <form id="enrollForm">
+        <div class="form-group">
+          <label for="enrollName">Full Name / Subject Identifier</label>
+          <input type="text" id="enrollName" class="cyber-input" placeholder="e.g. Sarah Connor" required />
+        </div>
+
+        <div class="form-group">
+          <label for="enrollClearance">Security Clearance Level</label>
+          <select id="enrollClearance" class="cyber-input">
+            <option value="LEVEL 1 // GUEST">LEVEL 1 // GUEST</option>
+            <option value="LEVEL 2 // OPERATOR" selected>LEVEL 2 // OPERATOR</option>
+            <option value="LEVEL 3 // SPECIAL AGENT">LEVEL 3 // SPECIAL AGENT</option>
+            <option value="LEVEL 4 // COMMANDER">LEVEL 4 // COMMANDER</option>
+            <option value="LEVEL 5 // TOP SECRET ALPHA">LEVEL 5 // TOP SECRET ALPHA</option>
+          </select>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" id="btnCancelEnroll" class="cyber-btn">CANCEL</button>
+          <button type="submit" class="cyber-btn cyber-btn-primary">ENROLL BIOMETRIC ID</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/static/js/audio.js"></script>
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
