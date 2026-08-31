@@ -1,0 +1,14 @@
+{
+    "IRIS-001": {
+        "name": "Keya Khan (Admin)",
+        "clearance": "LEVEL 5 // ALPHA",
+        "hash": "8F3A2B1C9D4E",
+        "enrolled_at": "2026-08-31"
+    },
+    "IRIS-002": {
+        "name": "Authorized Agent",
+        "clearance": "LEVEL 3 // OPERATIVE",
+        "hash": "4A7C9E1F2B5D",
+        "enrolled_at": "2026-08-31"
+    }
+}
